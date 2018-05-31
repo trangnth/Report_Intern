@@ -49,10 +49,6 @@ Không giống như Ubuntu Desktop, Ubuntu server không hỗ trợ các chươn
 
 <img src = "img/17.png">
 
-* Login với username và password đã tạo lúc cài máy ảo (đã hướng dẫn (ở đây)[../VMWare/VMWare.md)
-
-<img src = "img/18.png">
-
 * Chọn ngôn ngữ
 
 <img src = "img/20.png">
