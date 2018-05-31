@@ -22,7 +22,7 @@
 - Nâng cao hiệu năng nhờ tận dụng kiến trúc CPU mới
 
 ### Version mới nhất hiện nay là VMWare WorkStation 14.1.2
-*Các tính năng mới*
+**Các tính năng mới**
 * Hỗ trợ thêm các HĐH:
 	* Ubuntu 17.04
 	* Fedora 26
@@ -33,15 +33,19 @@
 	* SLE 12 SP3
 	* OpenSUSE 42.3
 * Hỗ trợ Virtualization Based Security
+
 Bảo mật dựa trên Ảo hóa trong Windows 10 đã chứng kiến sự chấp nhận đáng kể trong môi trường doanh nghiệp vì nó đã giúp tăng cường bảo mật chung của hệ điều hành Windows. Cả Workstation và Fusion Pro sẽ bổ sung thêm sự hỗ trợ rất cần thiết cho Virtualization Based Security (VBS) cho Windows 10 và Windows Server 2016. Các tính năng bảo mật của Windows 10 như Credential Guard, nền tảng an toàn khởi động của giao diện phần vững (UEFI) và đáng tin cậy với các module được bao gồm trong cả Fusion và Workstation Pro.
 
 * Mạng ảo
+
 Khi nói đến việc khắc phục sự cố và thử nghiệm các ứng dụng trên mạng, Bộ mô phỏng mới Latency Simulator sẽ là một bổ sung đáng hoan nghênh cho các công cụ mạng bao gồm trong Workstation Pro. Trong Fusion Pro, khả năng mô phỏng mất gói và giới hạn băng thông sẽ tăng cường các phương pháp của người dùng về kiểm tra các vấn đề về mạng. Một tính năng mạng tiên tiến khác là khả năng tùy chỉnh các tên bộ điều hợp NIC ảo, điều này sẽ giúp người dùng tổ chức tốt hơn các cấu hình mạng của họ.
 
 * DevOps
+
 Trong số các tính năng mới trong phiên bản Fusion này, VMware đã cho thấy khả năng nghe phản hồi của khách hàng vì nhiều người tập trung vào DevOps. Fusion bổ sung thêm các tính năng với Vagrant và Docker để giúp tự động hóa quá trình phát triển cho các ứng dụng chứa trong doanh nghiệp của bạn. Giờ đây, người dùng có thể sử dụng API REST dựa trên Swagger để tích hợp vào các kịch bản phát triển liên tục trong khi tận dụng quản lý kho của VM, sức mạnh, nhân bản và mạng.
 
 * Đồ họa
+
 Fusion Pro 10 sẽ không chỉ là một giao diện được cập nhật mới nhất mà còn sẽ cải thiện giao diện và chức năng cho người dùng cuối. Ngoài ra, Fusion sẽ bổ sung hỗ trợ máy ảo cho macOS 10.13 High Sierra. Người dùng sẽ thích rằng Fusion giờ đây thúc đẩy Mac TouchBar để dễ dàng và nhanh chóng kiểm soát môi trường của bạn.
 
 * Và nhiều tính năng khác
@@ -50,13 +54,16 @@ Fusion Pro 10 sẽ không chỉ là một giao diện được cập nhật mớ
 <a name="install"></a>
 ## 2. Install VMWare
 ### Yêu cầu phần cứng
-*OS:* Windows 64-bit
-*RAM:* 4GB trở lên
+**OS:** Windows 64-bit
+
+**RAM:** 4GB trở lên
+
 *CPU:* Intel Core i3, Core i5 hoặc Core i7
+
 *Disk:* nên sử dụng SDD để đem lại trải nghiệm Linux một cách mượt mà nhất, hoặc sử dụng ổ HDD cũng được
 
 ### Cài đặt 
-* Download bản mới nhất cho Windows hoặc Linux[tại đây](https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html). Dưới đây sẽ hương dẫn cài trên windows.
+* Download bản mới nhất cho Windows hoặc Linux [tại đây](https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html). 
 
 <a name="card"></a>
 ## 3. Các chế độ card mạng của VMWare
@@ -67,7 +74,7 @@ Trong VMWare có ba chế độ card mạng như sau:
 	- NAT
 	- Host-only
 ### Brige
-Card mạng của máy ảo sẽ được gắn trực tiếp với card mạng của máy thật (sử dụng switch ảo VMnet0). Lúc này, máy ảo sẽ đóng vai trò như một máy trong mạng thật, có thể nhận DHCP từ mạng ngoài, hoặc đặt IP tĩnh cùng dải với mạng ngoài để giao tiếp với các máy ngoài mạng hoặc lên Internet.
+* Card mạng của máy ảo sẽ được gắn trực tiếp với card mạng của máy thật (sử dụng switch ảo VMnet0). Lúc này, máy ảo sẽ đóng vai trò như một máy trong mạng thật, có thể nhận DHCP từ mạng ngoài, hoặc đặt IP tĩnh cùng dải với mạng ngoài để giao tiếp với các máy ngoài mạng hoặc lên Internet.
 
 ### NAT
 * Lúc này máy ảo sẽ được cấu hình NAT và sử dụng IP của máy thật để giao tiếp với mạng ngoài.
@@ -76,8 +83,8 @@ Card mạng của máy ảo sẽ được gắn trực tiếp với card mạng 
 
 
 ### Host-only
-Khi cấu hình máy ảo sử dụng host-only networking, máy ảo sẽ được kết nối với máy thật trong một mạng riêng thông qua Switch ảo VMnet1 và không kết nối được ra mạng ngoài.
-Địa chỉ của máy ảo và máy thật trong mạng host-only có thể được cấp bởi DHCP ảo gắn liền với Switch ảo Vmnet1 hoặc có thể đặt địa chỉ IP tĩnh cùng dải để kết nối với nhau.
+* Khi cấu hình máy ảo sử dụng host-only networking, máy ảo sẽ được kết nối với máy thật trong một mạng riêng thông qua Switch ảo VMnet1 và không kết nối được ra mạng ngoài.
+* Địa chỉ của máy ảo và máy thật trong mạng host-only có thể được cấp bởi DHCP ảo gắn liền với Switch ảo Vmnet1 hoặc có thể đặt địa chỉ IP tĩnh cùng dải để kết nối với nhau.
 
 <a name="cre"></a>
 ## 4. Tạo máy ảo trên VMWare
@@ -132,7 +139,6 @@ Tùy chọn đầu `BusLogic` không phù hợp cho hệ điều hành phân b�
 * Select a Disk Type
 
 <img src = "img/11.png">
-
 	* Có thể chọn `IDE` disk cho bất kỳ hệ thống nào
 	* Có thể chọn `SCSI` disk cho bất kỳ hệ thống nào có driver cho LSI Logic hoặc BusLogic SCSI controller có sẵn trong máy ảo.
 	* Có thể chọn `SATA` disk cho một vài hệ thống
@@ -161,7 +167,7 @@ Máy đang chạy
 
 <img src = "img/16.png">
 
-** Tiếp theo về phần cài đặt lên ubuntu 16 xem** [ở đây](ubuntu16.04.md)
+**Tiếp theo về phần cài đặt lên ubuntu 16 xem** [ở đây](ubuntu16.04.md)
 
 
 
