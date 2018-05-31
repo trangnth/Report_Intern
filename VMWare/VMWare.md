@@ -58,9 +58,9 @@ Fusion Pro 10 sẽ không chỉ là một giao diện được cập nhật mớ
 
 **RAM:** 4GB trở lên
 
-*CPU:* Intel Core i3, Core i5 hoặc Core i7
+**CPU:** Intel Core i3, Core i5 hoặc Core i7
 
-*Disk:* nên sử dụng SDD để đem lại trải nghiệm Linux một cách mượt mà nhất, hoặc sử dụng ổ HDD cũng được
+**Disk:** nên sử dụng SDD để đem lại trải nghiệm Linux một cách mượt mà nhất, hoặc sử dụng ổ HDD cũng được
 
 ### Cài đặt 
 * Download bản mới nhất cho Windows hoặc Linux [tại đây](https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html). 
@@ -137,12 +137,13 @@ Chọn `Next` và điền thông tin
 Tùy chọn đầu `BusLogic` không phù hợp cho hệ điều hành phân bản 64-bit. LSI Logic có giao diện song song và LSI Logic SAS thì có giao diện nối tiếp. LSI Logic đã được cải thiện hiệu suất và hoạt động tốt hơn so với các thiết bị SCSI chung. Mặc định sẽ chọn LSI Logic.
 
 * Select a Disk Type
-
-<img src = "img/11.png">
 	* Có thể chọn `IDE` disk cho bất kỳ hệ thống nào
 	* Có thể chọn `SCSI` disk cho bất kỳ hệ thống nào có driver cho LSI Logic hoặc BusLogic SCSI controller có sẵn trong máy ảo.
 	* Có thể chọn `SATA` disk cho một vài hệ thống
 	* Có thể chọn `NVMe` cho hệ thống support loại NVMe disk
+
+<img src = "img/11.png">
+
 ở đây tôi sẽ chọn mặc định
 
 * Tiếp theo là lựa chọn ổ đĩa: Tạo một ổ mới, sử dụng một ổ đã tồn tại hoặc cho phép truy cập vào ổ đĩa thật. Tôi chọn tạo ổ mới sau đó ấn `Next`.
@@ -167,7 +168,7 @@ Máy đang chạy
 
 <img src = "img/16.png">
 
-**Tiếp theo về phần cài đặt lên ubuntu 16 xem** [ở đây](ubuntu16.04.md)
+**Tiếp theo về phần cài đặt lên ubuntu 16 xem** [ở đây](../Ubuntu/ubuntu.md)
 
 
 
