@@ -8,6 +8,8 @@
 
 4. [Tạo máy ảo](#cre)
 
+5. [Nat Advance](#natAd)
+
 
 <a name="overview"></a>
 ## 1. Overview
@@ -70,21 +72,24 @@ Fusion Pro 10 sẽ không chỉ là một giao diện được cập nhật mớ
 Sau khi cài đặt xong, VMWare sẽ tạo nên 2 card mạng VMware 1 và VMware 8 trên máy thật, máy thật sẽ sử dụng hai card này để kết nối với máy ảo.
 
 Trong VMWare có ba chế độ card mạng như sau:
-	- Bridge
-	- NAT
-	- Host-only
-### Brige
-* Card mạng của máy ảo sẽ được gắn trực tiếp với card mạng của máy thật (sử dụng switch ảo VMnet0). Lúc này, máy ảo sẽ đóng vai trò như một máy trong mạng thật, có thể nhận DHCP từ mạng ngoài, hoặc đặt IP tĩnh cùng dải với mạng ngoài để giao tiếp với các máy ngoài mạng hoặc lên Internet.
+	
+	+ Bridge
+	
+	+ NAT
+	
+	+ Host-only
 
-### NAT
-* Lúc này máy ảo sẽ được cấu hình NAT và sử dụng IP của máy thật để giao tiếp với mạng ngoài.
-* Các máy ảo được cấp địa chỉ IP nhờ một DHCP ảo của VMware. 
-* Lúc này, các máy ảo sẽ kết nối với máy thật qua switch ảo VMnet8, và máy thật sẽ đóng vai trò NAT server cho các máy ảo.
+* Brige
+	* Card mạng của máy ảo sẽ được gắn trực tiếp với card mạng của máy thật (sử dụng switch ảo VMnet0). Lúc này, máy ảo sẽ đóng vai trò như một máy trong mạng thật, có thể nhận DHCP từ mạng ngoài, hoặc đặt IP tĩnh cùng dải với mạng ngoài để giao tiếp với các máy ngoài mạng hoặc lên Internet.
 
+* NAT
+	* Lúc này máy ảo sẽ được cấu hình NAT và sử dụng IP của máy thật để giao tiếp với mạng ngoài.
+	* Các máy ảo được cấp địa chỉ IP nhờ một DHCP ảo của VMware. 
+	* Lúc này, các máy ảo sẽ kết nối với máy thật qua switch ảo VMnet8, và máy thật sẽ đóng vai trò NAT server cho các máy ảo.
 
-### Host-only
-* Khi cấu hình máy ảo sử dụng host-only networking, máy ảo sẽ được kết nối với máy thật trong một mạng riêng thông qua Switch ảo VMnet1 và không kết nối được ra mạng ngoài.
-* Địa chỉ của máy ảo và máy thật trong mạng host-only có thể được cấp bởi DHCP ảo gắn liền với Switch ảo Vmnet1 hoặc có thể đặt địa chỉ IP tĩnh cùng dải để kết nối với nhau.
+* Host-only
+	* Khi cấu hình máy ảo sử dụng host-only networking, máy ảo sẽ được kết nối với máy thật trong một mạng riêng thông qua Switch ảo VMnet1 và không kết nối được ra mạng ngoài.
+	* Địa chỉ của máy ảo và máy thật trong mạng host-only có thể được cấp bởi DHCP ảo gắn liền với Switch ảo Vmnet1 hoặc có thể đặt địa chỉ IP tĩnh cùng dải để kết nối với nhau.
 
 <a name="cre"></a>
 ## 4. Tạo máy ảo trên VMWare
@@ -169,6 +174,44 @@ Máy đang chạy
 <img src = "img/16.png">
 
 **Tiếp theo về phần cài đặt lên ubuntu 16 xem** [ở đây](../Ubuntu/ubuntu.md)
+
+
+<a name=natAd></a>
+## 5. Nat Advance
+
+Khi một máy ảo trong VMWare sử dụng card mạng NAT thì sẽ được NAT ra ngoài mạng qua địa chỉ của máy thật, và các máy từ mạng ngoài sẽ không thể truy cập vào các máy trong dải NAT đó. Nếu muốn truy cập vào được (ví dụ ssh vào một máy ảo bên trong đang sử dụng NAT) thì cần tạo đường và cho phép máy bên ngoài truy câp vào.
+
+Ví dụ dưới đây tôi sẽ hướng dẫn một máy của mạng LAN bên ngoài, cùng dải với máy thật, truy cập vào máy ảo bên trong NAT.
+
+* Đầu tiên tôi sử dụng Ubuntu server 16.04 để NAT, ip: 192.168.60.129
+
+Ip máy thật: 192.168.0.143
+
+* Vào VMWare -> Chọn `Edit` -> Virtual Network Editor 
+
+<img src = "img/17.png">
+
+<img src = "img/18.png">
+
+* Thay đổi cài đặt -> Change Setting làm theo hình
+
+<img src = "img/19.png">
+
+<img src = "img/20.png">
+
+* Chọn cổng nằm trong dải khả dụng mà máy thật của bạn chưa sử dụng
+
+<img src = "img/21.png">
+
+* Lưu lại, và ssh vào máy ảo bằng địa chỉ máy thật qua port `1111`. Ở đây tôi sử dụng Xshell
+
+<img src = "img/22.png">
+
+* Nhập usename, password của máy ảo vào là xong.
+
+<img src = "img/23.png">
+
+
 
 
 
