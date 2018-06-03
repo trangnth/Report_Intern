@@ -12,7 +12,7 @@ Chính xác thì `Linux` có nghĩa là nhân (kernel) của hệ điều hành,
 Mỗi bản phân phối hướng đến một đối tượng, phục vụ một nhu cầu khác nhau. Các bản phân phối nổi tiếng hiện nay như: Ubuntu, Mint, Fedora, Arch, Suse,... Cơ bản đều dựa trên ba nhánh chính:
 * Debian: Bản thân Debian cũng là một distro, trong nhánh này đều sử dụng phương thức quản lý gói là dpkg và phương thức cập nhật là apt. Tiêu biểu như: Ubuntu, Linux Mint Knoppix,... có sự thống nhất và ổn định cao hơn nhánh RedHat.
 
-* RedHat: Phát triển dựa trên RedHat Linux Enterprise (RHEL). RHEL là một distro có tính chất thương mại và hướng tới người dùng doanh nghiệp, còn phiên bản chính thức của nó hướng tới người dùng cá nhân là Fedora. Ngoài ra còn một số các distro khác như: CentOS, Mandriva, OpenSUSE,... So với nhánh Debian, thì nhánh này ít có sự thống nhất hơn. mặc dù cùng sử dụng .rpm (vì vậy chúng còn có tên là các RPM distros) là đuôi tập tin cài đặt ứng dụng chính thức, các distros này sử dụng phương thức quản lí gói và cập nhật khá khác nhau.
+* Fedora: Phát triển dựa trên RedHat Linux Enterprise (RHEL). RHEL là một distro có tính chất thương mại và hướng tới người dùng doanh nghiệp, còn phiên bản chính thức của nó hướng tới người dùng cá nhân là Fedora. Ngoài ra còn một số các distro khác như: CentOS, Mandriva, OpenSUSE,... So với nhánh Debian, thì nhánh này ít có sự thống nhất hơn. mặc dù cùng sử dụng .rpm (vì vậy chúng còn có tên là các RPM distros) là đuôi tập tin cài đặt ứng dụng chính thức, các distros này sử dụng phương thức quản lí gói và cập nhật khá khác nhau.
 
 * Slackware: Tiêu biểu như Arch, Gentoo,... là các distro được phát triển mà không dựa trên Debian hay RetHat, hầu hết việc sử dụng đều thông qua môi trường dòng lệnh.
 
@@ -23,9 +23,14 @@ Ubuntu thì có giao diện thân thiện phù hợp cho người mới bắt đ
 ### Các phiên bản Ubuntu
 Bản đầu tiên được phát hành vào ngày 20 tháng 10 năm 2004 là Ubuntu 4.10, các phiên bản mới được phát hành mỗi 6 tháng, đến nay có bản mới nhất là Ubuntu 18.04 phát hành vào tháng 4 năm 2018.
 
-Gồm có các bản thông thường và các bản hỗ trợ lâu dài
+Các phiên bản được đặt tên có chữ cái bắt đầu theo thứ tự từ A -> Z cho các phiên bản, Bản đầu tiên là **Warty  Warthog**, gồm 2 từ đều bắt đầu bằng chữ `W`, bản được phát hành tiếp theo sau đó sẽ gồm 2 từ bắt đầu bằng chữ `A`, cứ như thế cho tới `Z` rồi lại quay lại.
+
+Gồm có các bản thông thường và các bản hỗ trợ lâu dài.
 
 Các phiên bản hỗ trợ dài hạn "Long Term Support", thường hỗ trợ 3 năm với máy đề bàn và 5 năm với server, các bản này sẽ ra mỗi 2 năm.
+
+Thúc đẩy mạnh xu hướng phát triển các hệ điều hành máy trạm tự do dễ sử dụng
+
 
 ### Ubuntu Server
 Ubuntu server được thiết kế riêng cho các mạng dịch vụ, chỉ có khả năng chạy như một file server đơn giản.
