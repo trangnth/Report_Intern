@@ -40,4 +40,4 @@ Ví dụ như:
 * Copy nội dung cho tới lúc gặp dấu ".": yf. (yank (to) find .)
 * Bạn muốn di chuyển con trỏ xuống dưới 10 dòng: 10j
 
-
+### Custom Vim
