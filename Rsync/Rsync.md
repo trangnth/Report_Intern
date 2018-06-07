@@ -30,6 +30,7 @@ Rsync có hai mode, một là remote-shell dùng lệnh copy bình thường (ss
 Mode daemon mặc định bind đến cổng 873, ở chế độ này, rsync hoạt động giống như một ftp server và cho phép download file public
 
 ## Cơ chế hoạt động
+
 Rsync tìm kiếm files cần được transfer, sử dụng  lqquick checkrq algorithm (mặc định) để tìm các file có thay đổi về kích thước hoặc lần sử đổi cuối cùng (last-modified time). Bất kỳ một sự thay đổi nào về các thuộc tính thì sẽ được thực hiện trực tiếp luôn trên tệp đích khi kiểm tra sự thay đổi của dữ liệu file mà không cần phải update
 
 
@@ -64,7 +65,7 @@ Pull: rsync [option] [user@]host:src [dest]
 Push: rsync [option] src [user@]host:dest
 ```
 
-**Access via rsync daemon:
+**Access via rsync daemon:**
 
 ```
 Pull:   rsync [option] [user@]host::src [dest]
@@ -184,7 +185,7 @@ files và floder sẽ được đồng bộ trong /data của server
 
 ### Sử dụng `incrond` để check và đồng bộ real time
 
-**Trên client **
+** Trên client **
 
 * Cài incron
 

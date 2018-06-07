@@ -10,6 +10,8 @@
 
 5. [Nat Advance](#natAd)
 
+6. [Note](#note)
+
 
 <a name="overview"></a>
 ## 1. Overview
@@ -211,6 +213,56 @@ Ip máy thật: 192.168.0.143
 
 <img src = "img/23.png">
 
+
+<a name=note></a>
+## 6. Note
+
+### Ubuntu 2 card mạng
+
+Ubuntu 16.04 gồm 1 card bridged và 1 card NAT
+
+`ip route` hoặc `netstat -rn` để xem bảng định tuyến
+
+```sh 
+# netstat -rn
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.0.1     0.0.0.0         UG        0 0          0 ens32
+192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 ens32
+192.168.60.0    0.0.0.0         255.255.255.0   U         0 0          0 ens33
+```
+
+xóa default gateway
+
+	sudo route delete default gw 192.168.0.1 ens32
+
+thêm gateway mới
+
+	sudo route add default gw 192.168.60.2 ens33
+
+Ngoài ra còn một cách nữa là sửa file cấu hình trong file `/etc/network/interface`. Muốn đi ra theo đường nào thì cấu hình static đường đó và đặt gateway cho nó là được
+
+```sh
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+auto ens33
+iface ens33 inet dhcp
+
+
+# The primary network interface
+auto ens32
+iface ens32 inet static
+address 192.168.0.151
+netmask 255.255.255.0
+gateway 192.168.0.1
+```
+
+Khởi động lại card mạng 
+
+	# sudo ifdown -a && ifup -a
+	# reboot
 
 
 
