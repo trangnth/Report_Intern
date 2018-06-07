@@ -4,7 +4,7 @@ VI hay VIM.
 
 Vim là từ Vi cải tiến nên cơ bản là chúng giống nhau.
 
-**Vậy Vi/Vim là gì, tại sao phải sử dụng nó**
+### Vậy Vi/Vim là gì, tại sao phải sử dụng nó
 
 Vi/Vim chỉ là một text editor. Giống như các text editor quen thuộc khác như Notepad, Sublime Text, Atom,... Vim cũng chỉ là một chương trình cho phép người dùng soạn thảo và chỉnh sửa nó tùy ý.
 
@@ -15,14 +15,14 @@ Vi/Vim chỉ là một text editor. Giống như các text editor quen thuộc k
 * Visual mode
 
 
-** Giữa Vi và Vim có một số sự khác biệt cơ bản: **
+### Giữa Vi và Vim có một số sự khác biệt cơ bản:
 
 * Portability: Vi chỉ có thể dùng trên Unix, thay vào đó thì Vim có làm việc trên cả MS-Windows, Macintosh, Amiga, OS/2, VMS, QNX và nhiều hệ thống khác. Tất nhiên Vim cũng có thể dùng trên tất cả các Unix system.
 
 * syntax highlighting: Vim được lập trình để làm nổi bật các thành phần với các color và style khác nhau dựa trên từng loại file đang được chỉnh sửa. Có hàng trăm các quy tắc syntax highlighting đi kèm với Vim trong khi Vi thì không
 
 
-** Cấu trúc câu lệnh của Vim **
+### Cấu trúc câu lệnh của Vim
 
 	[number][command][motion/ text object]
 

@@ -27,9 +27,9 @@ Bạn có thể pipe output của một command hoặc program khác như một 
 Tiện ích `locate` thực hiện tìm kiếm thông qua cơ sở dữ liệu của file và thư mục được xây dựng trước đó trên hệ thống của bạn, matching với tất cả các mục có chưa chuỗi ký tự được chỉ định. `locate` sử dụng database được tạo bởi một chương trình khác là `updatedb`. Hầu hết các hệ thống linux đều chạy tự động mỗi ngày một lần. Tuy nhiên, bạn có thể update bất cứ lúc nào bằng việc chạy `updatedb` với user root
 
 ```sh
-# apt-get install -y mlocate
-# updatedb
-# locate zip
+sudo apt-get install -y mlocate
+sudo updatedb
+sudo locate zip
 ```
 
 Một ví dụ muốn tìm tất cả các file có đường dẫn chứa từ `zip` và trong danh sách outout từ lệnh trên, hiển thị tất cả các dòng có chứ từ `bin` để rút ngắn danh sách đó, ta sẽ đưa vào pipe như sau: 

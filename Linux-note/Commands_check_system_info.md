@@ -50,8 +50,10 @@ Có thể dùng các tùy chọn khác để show ra từng thông tin một
 
 * Command `cat /proc/version`: cũng kiểm tra thông tin kernel
 
+```sh
 	ubuntu@ip-172-31-22-1:~$ cat /proc/version
 	Linux version 4.4.0-1041-aws (buildd@lgw01-amd64-025) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.5) ) #50-Ubuntu SMP Wed Nov 15 22:18:17 UTC 2017
+```
 
 * Một số các các thông tin khác chưa trong `/proc`, các lệnh cơ bản
 	* Command `/proc/meminfo`:  Ram info
