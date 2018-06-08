@@ -10,6 +10,7 @@ Trong Linux và Unix, mỗi file đều có một user sở hữu gọi là owne
 
 Files có 3 kiểu permission: read (r), write (w), execute (x). Chúng thường được biểu diễn theo  thứ tự `rwx`. Các permission này ảnh hưởng tới các nhóm của người sở hữu: user(u), group (g), và others (o). Kết quả là bạn có 3 nhóm như sau:
 
+|-----|----|----|
 |rwx: |rwx | rwx|
 |u:|g:|o|
 
@@ -29,10 +30,12 @@ Phần `permision` có 3 kiểu:
 
 #### Một số quy ước cho kiểu ugo
 
+|--|-----------|
 | +| Thêm quyền|
 |-| Bỏ quyền |
 |=| Gán quyền|
 
+|-|------|
 |a| u+g+o|
 |u| user owner|
 |g| group owner|
@@ -52,6 +55,7 @@ Thêm một vài ví dụ:
 #### Kiểu dùng ký tự để phân quyền
 
 |permission||Note|
+|----------|-|----|
 |r|read|owner có quyền đọc file|
 |w|write|owner có quyền sửa và xóa file|
 |x|execute|owner có quyền thực thi đối với file, với thư mục thì được phép sử dụng lệnh `cd` để truy cập|
@@ -71,6 +75,7 @@ Ví dụ: `o+rws` cho phép user sở hữu có full quyền đồng thời set 
 
 #### Quy ước kiểu số:
 |permision|binary|number|
+|---------|------|------|
 |---|000|0|
 |--x|001|1|
 |-w-|010|2|
@@ -82,6 +87,7 @@ Ví dụ: `o+rws` cho phép user sở hữu có full quyền đồng thời set 
 
 Ngoài ra người ta sử dụng thêm một bit thứ 4 để biểu diễn suid, sgid và sticky bit
 
+|----|-----|
 |suid| 4000|
 |sgid|2000|
 |sticky|1000|
@@ -94,7 +100,9 @@ umask
 #### Group sudo
 
 File cấu hình sudo nằm ở:
+
 >/etc/sudoes
+
 >/etc/sudoes.d/
 
 Dòng `%sudo   ALL=(ALL:ALL) ALL` có nghĩa là group sudo có quyền thực thi tất cả các lệnh. Muốn user có quyền của nhóm sudo thì thêm vào nhóm này. Ví dụ thêm group uet để các thành viên đều có quyền thực thi tất cả các lệnh thì thêm dòng `%uet ALL=(ALL:ALL) ALL`
