@@ -30,11 +30,13 @@ Phần `permision` có 3 kiểu:
 
 #### Một số quy ước cho kiểu ugo
 
+|Operator||
 |--|-----------|
 | +| Thêm quyền|
 |-| Bỏ quyền |
 |=| Gán quyền|
 
+|Owner||
 |-|------|
 |a| u+g+o|
 |u| user owner|
@@ -48,13 +50,10 @@ chmod a=-,u+rwx,g+rwsx,u-w
 
 Phân tích lệnh trên: đầu tiên bỏ toàn bộ quyền cho cả 3 nhóm(u, g, o), sau đó thêm quyền rwx cho user sở hữu, thêm quyền rwsx cho group sở hữu, sau đó lại bỏ quyền `w` cho user
 
-Thêm một vài ví dụ:
-
-* 
 
 #### Kiểu dùng ký tự để phân quyền
 
-|permission||Note|
+|Permission|Name|Note|
 |----------|-|----|
 |r|read|owner có quyền đọc file|
 |w|write|owner có quyền sửa và xóa file|
@@ -74,7 +73,7 @@ Ví dụ: `o+rws` cho phép user sở hữu có full quyền đồng thời set 
 
 
 #### Quy ước kiểu số:
-|permision|binary|number|
+|Permision|Binary|Number|
 |---------|------|------|
 |---|000|0|
 |--x|001|1|
@@ -87,6 +86,7 @@ Ví dụ: `o+rws` cho phép user sở hữu có full quyền đồng thời set 
 
 Ngoài ra người ta sử dụng thêm một bit thứ 4 để biểu diễn suid, sgid và sticky bit
 
+|Permision|Number|
 |----|-----|
 |suid| 4000|
 |sgid|2000|
@@ -101,10 +101,9 @@ umask
 
 File cấu hình sudo nằm ở:
 
->/etc/sudoes
-
->/etc/sudoes.d/
-
+	/etc/sudoes
+	/etc/sudoes.d/
+	
 Dòng `%sudo   ALL=(ALL:ALL) ALL` có nghĩa là group sudo có quyền thực thi tất cả các lệnh. Muốn user có quyền của nhóm sudo thì thêm vào nhóm này. Ví dụ thêm group uet để các thành viên đều có quyền thực thi tất cả các lệnh thì thêm dòng `%uet ALL=(ALL:ALL) ALL`
 
 
