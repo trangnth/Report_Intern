@@ -48,7 +48,7 @@ Bố cục cơ bản Logical Volume Manager layout (LVM) trông giống như sau
 * Logical Volume(s): Có thể coi đây là các phân vùng ảo trên ổ đĩa ảo, có thể thay đổi kích thước tùy ý: /dev/fileserver/share, /dev/fileserver/backup, /dev/fileserver/media
 
 
-<a name="arch">
+<a name="arch"></a>
 ### 2.2 Kiến trúc
 
 **Partitions** là các phân vùng của Hard drives, mỗi Hard drives có 4 partition, trong đó partition bao gồm 2 loại là primary partition và extended partition
