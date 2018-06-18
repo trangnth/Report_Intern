@@ -7,7 +7,7 @@
 
 2. [Architecture and component](#Arch&Comp)
 	
-	* 2.1 [Các thành phần](#Comp)
+	* 2.1 [Các thành phần](#comp)
 	* 2.2 [Kiến trúc](#arch)
 
 3. [Cơ chế hoạt động](#work_flow)
@@ -17,22 +17,28 @@
 	* 4.1 [Ưu điểm](#uu)
 	* 4.2 [Nhược](#nhuoc)
 
+5. [Lab LVM](#lab)
+
 
 <a name=overview></a>
 ## 1. Overview
 
+<a name="define"></a>
 ### 1.1 Khái niệm
 
 LVM (Logical Volume Manager) là một kỹ thuật cho phép tạo ra các không gian ổ đĩa ảo từ ổ đĩa cứng để có thể thay đổi kích thước dễ dàng hơn
 
+<a name="role"></a>
 ### 1.2 Vai trò
 
 LVM giúp nới rộng hoặc thu hẹp không gian ổ đĩa mà không cần phải chia lại partition trên đĩa cứng, không ảnh hưởng đến hệ thống và các dịch vụ đang chạy.
 
 LVM có thể gom nhiều ổ đĩa cứng thành một ổ ảo, giúp tăng kích thước lưu trữ.
 
+<a name="Arch&Comp"></a>
 ## 2. Architecture and component
 
+<a name="comp"></a>
 ### 2.1 Các thành phần
 
 Bố cục cơ bản Logical Volume Manager layout (LVM) trông giống như sau:
@@ -41,8 +47,9 @@ Bố cục cơ bản Logical Volume Manager layout (LVM) trông giống như sau
 * Volume Group(s): Có thể coi đây là ổ đĩa ảo, bao gồm nhiều các Physical Volume: fileserver
 * Logical Volume(s): Có thể coi đây là các phân vùng ảo trên ổ đĩa ảo, có thể thay đổi kích thước tùy ý: /dev/fileserver/share, /dev/fileserver/backup, /dev/fileserver/media
 
-### 2.2 Kiến trúc
 
+<a name="arch">
+### 2.2 Kiến trúc
 
 **Partitions** là các phân vùng của Hard drives, mỗi Hard drives có 4 partition, trong đó partition bao gồm 2 loại là primary partition và extended partition
 
@@ -74,14 +81,16 @@ Bởi vì physical volume không thể mở rộng trên nhiều ổ driver nên
 
 Volume group có thể chia làm các logical volume để làm các mount point như là `/home` và `root` và các loại file system như ext2 và ext3. Khi các partition full dung lượng, không gian trống trong volume group có thể được thêm vào logical volume để tăng dung lương cho partition. Khi có ổ cứng mới được lắp vào hệ thống, nó có thể được thêm vào volume group và tăng kích thước cho logical volumes.
 
+<a name="uunhuoc"></a>
 ## 4. Ưu Nhược điểm 
+<a name="uu"></a>
 ### 4.1 Ưu điểm
 
 * Có thể gom nhiều đĩa cứng vật lý lại thành một đĩa ảo dung lượng lớn.
 * Có thể tạo ra các vùng dung lượng lớn nhỏ tuỳ ý.
 * Có thể thay đổi các vùng dung lượng đó dễ dàng, linh hoạt mà không cần format lại ổ đĩa.
 
-
+<a name="nhuoc"></a>
 ### 4.2 Nhược điểm
 
 * Các bước thiết lập phức tạp, khó khăn hơn.
@@ -89,7 +98,9 @@ Volume group có thể chia làm các logical volume để làm các mount point
 * Khả năng mất dữ liệu khi một trong số các đĩa cứng vật lý bị hỏng.
 * Windows không thể nhận ra vùng dữ liệu của LVM. Nếu bạn Dual-boot Windows sẽ không thể truy cập dữ liệu chứa trong LVM.
 
-## 5. LAB LVM
+
+<a name="lab"></a>
+## 5. Lab LVM
 
 Khi bạn gắn thêm một ổ cứng SCSI 20GB và thêm vào volume group
 
@@ -167,9 +178,7 @@ Device     Boot   Start     End Sectors Size Id Type
 
 Ở đây, disk `sdb` và `sdc` đều có 2 partition.
 
-* Tạo Physical Volume
-
-Dùng lệnh `pvcreate` cho các partition
+* Tạo Physical Volume: Dùng lệnh `pvcreate` cho các partition
 
 ```
 pvcreate /dev/sdb1
@@ -190,19 +199,15 @@ Dùng lệnh `vgs` và `vgdisplay` để kiểm tra
 
 * Để tạo ra một Logical Volume tên là lv-demo1 có dung lượng là 1G trong group vg-demo1 sử dụng lệnh sau:
 
-	lvcreate -L 1G -n lv-demo1 vg-demo1
+		lvcreate -L 1G -n lv-demo1 vg-demo1
 
 Dùng lệnh `lvs` hoặc `lvdisplay` để kiểm tra.
 
-* Định dạng Logical Volume
+* Định dạng Logical Volume: Để format các Logic Volume thành các định dạng như ext2, ext3, ext4 ta làm như sau:
 
-Để format các Logic Volume thành các định dạng như ext2, ext3, ext4 ta làm như sau:
+		mkfs -t ext4 /dev/vg-demo1/lv-demo1
 
-	mkfs -t ext4 /dev/vg-demo1/lv-demo1
-
-* Mount và sử dụng
-
-Tạo một thư mục để mount Logical Volume đã tạo vào. Sau đó tiến hành mount logical volume. Lưu ý: đây là kiểu mount mềm, sẽ bị mất nếu máy khởi động lại. Để có thể sử dụng ngay cả khi reboot máy, bạn cần phải mount cứng.
+* Mount và sử dụng: Tạo một thư mục để mount Logical Volume đã tạo vào. Sau đó tiến hành mount logical volume. Lưu ý: đây là kiểu mount mềm, sẽ bị mất nếu máy khởi động lại. Để có thể sử dụng ngay cả khi reboot máy, bạn cần phải mount cứng.
 
 ```
 mkdir demo1
