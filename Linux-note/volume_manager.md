@@ -134,7 +134,7 @@ $ ls /dev/sd*
 
 
 ### Tạo partition
-* Dùng lệnh `fdisk /dev/sdb` và gõ `m` để hiển thị trợ giúp. Để add thêm partition mới chọn `n`, để thêm partition extended chọn `e`, để thêm partition primary chọn `p`. 
+Dùng lệnh `fdisk /dev/sdb` và gõ `m` để hiển thị trợ giúp. Để add thêm partition mới chọn `n`, để thêm partition extended chọn `e`, để thêm partition primary chọn `p`. 
 
 Tại `First sector` bạn để mặc định, `Last sector` chọn +1G để partition tạo ra có dung lượng 1GB
 
@@ -153,7 +153,8 @@ Created a new partition 1 of type 'Linux' and of size 1 GiB.
 
 Command (m for help): 
 ```
-* Tiếp theo bạn thay đổi định dạng partiton mới tạo thành LVM với lệnh `fdisk /dev/sdb`, chọn `t` để thay đổi định dạng partition và chọn `8e` để đổi thành LVM.
+
+Tiếp theo bạn thay đổi định dạng partiton mới tạo thành LVM với lệnh `fdisk /dev/sdb`, chọn `t` để thay đổi định dạng partition và chọn `8e` để đổi thành LVM.
 
 ```sh
 Command (m for help): t
@@ -172,13 +173,13 @@ Device     Boot   Start     End Sectors Size Id Type
 
 ### Tạo Logical Volume trên LVM
 
-* Tương tự các bước trên tôi sẽ tạo ra một số phân vùng nữa (Như hình dưới). Dùng lệnh `lsblk` để kiểm tra.
+Tương tự các bước trên tôi sẽ tạo ra một số phân vùng nữa (Như hình dưới). Dùng lệnh `lsblk` để kiểm tra.
 
 <img src="img/2.png">
 
 Ở đây, disk `sdb` và `sdc` đều có 2 partition.
 
-* Tạo Physical Volume: Dùng lệnh `pvcreate` cho các partition
+Tạo Physical Volume: Dùng lệnh `pvcreate` cho các partition
 
 ```
 pvcreate /dev/sdb1
@@ -189,7 +190,7 @@ pvcreate /dev/sdc2
 
 Dùng lệnh `pvs` hoặc `pvdisplay` để kiểm tra các Physical Volume.
 
-* Tạo Volume Group với tên vg-demo1
+Tạo Volume Group với tên vg-demo1
 
 		vgcreate vg-demo1 /dev/sdb1 /dev/sdb2 /dev/sdc1 /dev/sdc2
 
@@ -197,17 +198,17 @@ Dùng lệnh `vgs` và `vgdisplay` để kiểm tra
 
 ### Tạo Logical Volume từ Volume group
 
-* Để tạo ra một Logical Volume tên là lv-demo1 có dung lượng là 1G trong group vg-demo1 sử dụng lệnh sau:
+Để tạo ra một Logical Volume tên là lv-demo1 có dung lượng là 1G trong group vg-demo1 sử dụng lệnh sau:
 
 		lvcreate -L 1G -n lv-demo1 vg-demo1
 
 Dùng lệnh `lvs` hoặc `lvdisplay` để kiểm tra.
 
-* Định dạng Logical Volume: Để format các Logic Volume thành các định dạng như ext2, ext3, ext4 ta làm như sau:
+Định dạng Logical Volume: Để format các Logic Volume thành các định dạng như ext2, ext3, ext4 ta làm như sau:
 
 		mkfs -t ext4 /dev/vg-demo1/lv-demo1
 
-* Mount và sử dụng: Tạo một thư mục để mount Logical Volume đã tạo vào. Sau đó tiến hành mount logical volume. Lưu ý: đây là kiểu mount mềm, sẽ bị mất nếu máy khởi động lại. Để có thể sử dụng ngay cả khi reboot máy, bạn cần phải mount cứng.
+Mount và sử dụng: Tạo một thư mục để mount Logical Volume đã tạo vào. Sau đó tiến hành mount logical volume. Lưu ý: đây là kiểu mount mềm, sẽ bị mất nếu máy khởi động lại. Để có thể sử dụng ngay cả khi reboot máy, bạn cần phải mount cứng.
 
 ```
 mkdir demo1
