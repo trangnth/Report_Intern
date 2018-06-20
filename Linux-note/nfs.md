@@ -1,1 +1,102 @@
-﻿
+﻿## Network Filesystem
+
+Việc sử dụng NFS (the Network File System) là một phương pháp được dùng cho việc chia sẻ data qua physical systems. Người quản trị gắn các thư mục của người dùng từ xa trên một máy chủ để cho phép họ truy cập vào cùng một tệp và cấu hình.
+
+Hoạt động theo cơ chế client-server
+
+File `/etc/export` chứa các đường dẫn thư mục và quyền hạn mà một host muốn chia sẻ dữ liệu với host khác qua NSF.
+
+Các máy chủ có quyền hạn sau: 
+
+* `rw`: Đọc và ghi
+* `ro`: Chỉ được đọc
+* `noacess`: Cấm truy cập vào các thư mục con của thư mục đc chia sẻ
+
+Ví dụ bạn muốn chia sẻ thư mục `/share` cho các máy có địa chỉ trong 192.168.1.1/28 có quyền đọc ghi thì thêm vào nội dung file dòng sau: 
+
+	/Share 192.168.1.1/28(rw)
+
+Lưu ý về các dấu cách trong dòng trên
+
+## Cài đặt trên Ubuntu 
+
+### Requirements
+
+Server:
+
+	Ubuntu 16.04
+	ip: 192.168.60.134
+
+Client:
+
+	Ubuntu 16.04
+	ip: 192.168.60.130
+
+### Installation
+
+Cài đặt nfs trên server:
+
+	sudo apt-get install nfs-kernel-server
+
+Trên client sẽ cài một gói nfs-common cung cấp chức năng nfs mà không bao gồm các thành phần server không cần thiết.
+
+	sudo apt-get install nfs-common
+
+Khởi động nfs trên server và client:
+
+	service nfs-kernel-server start
+
+Trên máy chủ, tôi sẽ tạo ra một thư mục để share các tệp tin và thay đôi quyền sở hữu tệp tin thành không sở hưu bởi ai cả:
+
+	sudo mkdir /var/nfs/general -p
+	sudo chown nobody:nogroup /var/nfs/general
+
+
+Sửa nội dung file `/etc/exports` để share cả thư mục vừa tạo và thư mục `/home` 
+
+```sh
+$ sudo vim /etc/exports
+/var/nfs/general 192.168.60.130(rw,sync,no_subtree_check)
+/home 192.169.60.130(rw,sync,no_root_squash,no_subtree_check,no_all_squash) 
+```
+
+Trong đó: 
+* `rw`: Tùy chọn này cho phép máy tính client truy cập cả đọc và viết vào bộ đĩa (volume).
+* `sync`: Tùy chọn này bắt buộc NFS phải ghi các thay đổi vào đĩa trước khi trả lời. Điều này dẫn đến một môi trường ổn định và phù hợp hơn kể từ khi trả lời phản ánh tình trạng thực tế của bộ đĩa (volume) từ xa. Tuy nhiên, nó cũng làm giảm tốc độ của hoạt động tập tin.
+* `no_subtree_check`: tùy chọn này ngăn cản việc kiểm tra cây con, đó là một quá trình mà host phải kiểm tra xem các tập tin thực sự vẫn có sẵn trong cây xuất cho mỗi yêu cầu.
+* `no_root_squash`: Theo mặc định, NFS chuyển yêu cầu từ người dùng root từ xa vào một người dùng không có đặc quyền trên máy chủ. Điều này đã được dự định như là tính năng bảo mật để ngăn chặn một tài khoản root trên máy khách (client) sử dụng hệ thống tập tin của máy chủ như là root.
+* `no_all_squash` enables the user’s authority
+
+
+Sau đó khởi động lại server:
+
+	sudo systemctl restart nfs-kernel-server
+
+Điều chỉnh filewall trên server để mở cổng 2049:
+
+	sudo ufw allow from 192.168.60.134 to any port nfs
+	sudo ufw status
+
+Trên client:
+
+	sudo mkdir -p /nfs/general
+	sudo mkdir -p /nfs/home 
+
+mount các thư mục vào client:
+
+	sudo mount 192.168.60.134:/var/nfs/general /nfs/general
+	sudo mount 192.168.60.134:/home /nfs/home	
+
+
+Kiểm tra xem đã mount được chưa bằng lệnh `df -h`. Giờ hãy thử tạo một file mới trong thư mục `general` trong client hoặc server ta sẽ thấy nó trên máy còn lại.
+
+Gắn thư mục NFS trên client lúc khởi động bằng cách thêm chúng vào tệp tin `/etc/fstab` dòng sau: 
+
+	192.168.60.134:/var/nfs/general /nfs/general nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+	192.168.60.134:/home /nfs/home nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+
+Nếu không dùng nữa thì trên client `unmount` thư mục share đó đi.
+
+
+
+[Tham khảo thêm ở đây](https://mangmaytinh.net/threads/thiet-lap-mot-nfs-mount-tren-ubuntu-16-04.43/)

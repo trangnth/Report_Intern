@@ -192,7 +192,7 @@ Dùng lệnh `pvs` hoặc `pvdisplay` để kiểm tra các Physical Volume.
 
 Tạo Volume Group với tên vg-demo1
 
-		vgcreate vg-demo1 /dev/sdb1 /dev/sdb2 /dev/sdc1 /dev/sdc2
+	vgcreate vg-demo1 /dev/sdb1 /dev/sdb2 /dev/sdc1 /dev/sdc2
 
 Dùng lệnh `vgs` và `vgdisplay` để kiểm tra
 
@@ -200,13 +200,13 @@ Dùng lệnh `vgs` và `vgdisplay` để kiểm tra
 
 Để tạo ra một Logical Volume tên là lv-demo1 có dung lượng là 1G trong group vg-demo1 sử dụng lệnh sau:
 
-		lvcreate -L 1G -n lv-demo1 vg-demo1
+	lvcreate -L 1G -n lv-demo1 vg-demo1
 
 Dùng lệnh `lvs` hoặc `lvdisplay` để kiểm tra.
 
 Định dạng Logical Volume: Để format các Logic Volume thành các định dạng như ext2, ext3, ext4 ta làm như sau:
 
-		mkfs -t ext4 /dev/vg-demo1/lv-demo1
+	mkfs -t ext4 /dev/vg-demo1/lv-demo1
 
 Mount và sử dụng: Tạo một thư mục để mount Logical Volume đã tạo vào. Sau đó tiến hành mount logical volume. Lưu ý: đây là kiểu mount mềm, sẽ bị mất nếu máy khởi động lại. Để có thể sử dụng ngay cả khi reboot máy, bạn cần phải mount cứng.
 
