@@ -246,29 +246,65 @@ root@intern-meditech:~# vgdisplay
   VG UUID               Zij5MI-DkQs-ZT44-eIdX-jomK-UdG8-11NcGf
 ```
 
-* Để tằng kích thước Logical Volume thêm 50M ta dùng lệnh
+* Để tăng kích thước Logical Volume thêm 50M ta dùng lệnh
 
 		lvextend -L +50M /dev/vg-demo1/lv-demo1
+
+* Hoặc có thể dùng đơn vị PE để thêm 1G vào Logical volume:
+
+		lvextend -L +256 /dev/vg-demo1/lv-demo1
 
 * Sau khi tăng kích thước cho Logical Volume thì kích thước Logical Volume đã được tăng nhưng file system trên volume này vẫn chưa thay đổi, bạn phải sử dụng lệnh sau:
 
 		resize2fs /dev/vg-demo1/lv-demo1
 
-* Để giảm kích thước đầu tiên cần phải unmount trước
+* Để giảm kích thước đầu tiên cần phải unmount trước, kiểm tra lại file system xem còn dung lượng không rồi thực hiện thay đổi:
 
 		mkdir /dump
 		mv /root/demo1/* /dump/
 		umount /root/demo1
+		e2fsck -ff /dev/vg-demo1/lv-demo1
 		lvreduce -L 20M /dev/vg-demo1/lv-demo1
 		mkfs.ext4 /dev/vg-demo1/lv-demo1
-
-
 
 ### Thay đổi dung lượng của Volume Group 
 
 Khi muốn tăng kích thước của Volume Group, bạn cần có các partition sẵn sàng để thêm vào, sao đó dùng câu lệnh sau để thêm partition `/dev/sdb3` vào group:
 
 	vgextend /dev/vg-demo1 /dev/sdb3
+
+Giảm dung lượng
+
+	vgreduce /dev/vg-demo1 /dev/sdb3
+
+Kiểm tra dung lượng volume group `vgs`
+
+Kiểm tra dung lượng logical volume `lvs`
+
+### Xóa một volume
+
+Để xóa một logical volume, trước tiên ta umount nó trc rồi xóa: 
+
+	umount /dev/vg-demo1/lv-demo1
+	lvremove /dev/vg-demo1/lv-demo1
+
+Để xóa một volume group, trước tiên ta xóa các logical volume mà nó quản lý trước rồi mới xóa volume group:
+
+	vgremove /dev/vg-demo1
+
+Để xóa các Physical Volume, ta cần xóa các Volume Group mà đang chưa nó thì mới xóa được bằng lệnh:
+
+	pvremove /dev/sdb1
+	pvremove /dev/sdb2
+	pvremove /dev/sdc1
+	pvremove /dev/sdc2
+
+Kiểm tra lại với câu lệnh `lvmdiskscan` sẽ cho biết partition nào đang là LVM physical volume.
+
+### Đổi tên 
+Đổi tên một Volume Group
+	
+	vgrename vg-demo1 vg-demo2
 
 ### Note adding the LV (Logical Volume) to the LVM VG (Volume Group)
 
@@ -291,3 +327,6 @@ Adding a linear LVM LV (Logical Volume)
 Alternately adding a stripped LVM LV (Logical Volume)
 
 	lvcreate --extents 100%FREE --stripes {NUMBER_OF_PHYSICAL_DRIVES} --name {LV_NAME} {VG_NAME}
+
+
+Một số các tính năng của LVM tìm hiểu thêm [ở đây](LVM_advance.md)

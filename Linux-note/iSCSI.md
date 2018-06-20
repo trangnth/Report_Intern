@@ -113,7 +113,7 @@ Kiểm tra lại xem đã kết nối tới server chưa, sử dụng một tron
 Cấu hình username và password của initiator để login vào server:
 
 	$ iscsiadm -m node --targetname "iqn.2017-07.ttp.vn:storage.lun1" --portal "10.10.10.10:3260" --op=update --name node.session.auth.username --value=trangnth
-	$iscsiadm -m node --targetname "iqn.2017-07.ttp.vn:storage.lun1" --portal "10.10.10.10:3260" --op=update --name node.session.auth.password --value=abc
+	$ iscsiadm -m node --targetname "iqn.2017-07.ttp.vn:storage.lun1" --portal "10.10.10.10:3260" --op=update --name node.session.auth.password --value=abc
 
 Hoặc có thể chỉnh sửa trong file với các thông tin:
 
@@ -146,5 +146,6 @@ sr0                              11:0    1  655M  0 rom
 
 Chúng ta sẽ nhìn thấy có thêm một ổ mới `sdb` với dung lượng 9.5M chính là image `lun1.img` bên target. `sdb` sẽ đóng vai trò như một ổ thật và có thể sử dụng nó bình thường như những ổ khác nhưng dữ liệu trên đó thực sự lại được lưu trên máy target. Lúc này dung lượng được lấy từ máy target và chia sẻ với máy initiator qua giao thức iSCSI. 
 
-##Tham khảo
+## Tham khảo
+
 Tôi Lab theo [bài này](https://github.com/hocchudong/thuctap012017/blob/master/TamNT/Tim_hieu_iSCSI.md)
