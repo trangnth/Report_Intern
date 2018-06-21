@@ -1,0 +1,119 @@
+﻿## Text commands
+
+Linux cung cấp các công cụ cho việc thao tác với file và text :
+
+1. Hiển thị nội dung sử dụng `cat` và `echo`
+2. Chỉnh sửa nội dụng sử dụng `sed` và `awk`.
+3. Tìm kiếm các đơn vị sử dụng `grep`.
+
+### Hiển thị nội dung
+
+`cat` sẽ in ra màn hình toàn bộ nội dung file
+
+`tac` giống `cat` nhưng thứ tự các dòng in ra sẽ ngược lại
+
+`echo` chỉ đơn giản dùng để in ra màn hình
+
+```sh
+[root@ip-172-31-22-1 ~]# echo home
+home
+[root@ip-172-31-22-1 ~]# echo $HOME
+/root
+```
+
+Ngoài ra tôi có note lại một số lệnh khác [ở đây](working_with_file.md)
+
+
+### Edit file content
+
+Command `sed` là một congg cụ mạnh mẽ để làm việc với các đoạn text. Nó sẽ lọc và sắp xếp sự bổ sung trong các dòng liệu (data streams). Dữ liệu từ nguồn vào (hoặc stream) sẽ được nhận và đưa vào một khu vực xử lí riêng. Toàn bộ danh sách hoạt động, việc chỉnh sửa được áp dụng vào dữ liệu trong khu vực làm việc và nội dung cuối cùng sẽ được chuyển ra ngoài khu vực làm việc đến nơi xuất dữ liệu chuẩn (hoặc stream).
+
+```sh
+[root@ip-172-31-22-1 ~]# vim trang.txt
+[root@ip-172-31-22-1 ~]# cat trang.txt 
+meditech jsc
+trangnth
+xin chao moi nguoi
+toi ten là trang
+[root@ip-172-31-22-1 ~]# sed s/toi/minh/ trang.txt 
+meditech jsc
+trangnth
+xin chao moi nguoi
+minh ten là trang
+[root@ip-172-31-22-1 ~]# sed s/chao/loi/ trang.txt > trang2.txt
+[root@ip-172-31-22-1 ~]# cat trang2.txt 
+meditech jsc
+trangnth
+xin loi moi nguoi
+toi ten là trang
+```
+
+Command `awk` dùng để giải nén và in ra nội dung cụ thể của một file , thường được sử dụng để xây dựng các bản báo cáo. Nó là một công cụ mạnh mẽ và là một trình thông dịch ngôn ngữ lập trình. Làm việc tốt với các dữ liệu theo dạng field (một mẩu dữ liệu riêng lẻ, đặc biệt là các cột ) và các ghi chép ( tập hợp các fields, đặc biệt là các dòng trong file ).
+
+```sh
+[root@ip-172-31-22-1 ~]# awk '{print $0 }' trang.txt 
+meditech jsc
+trangnth
+xin chao moi nguoi
+toi ten là trang
+[root@ip-172-31-22-1 ~]# awk '{print $2 }' trang.txt 
+jsc
+
+chao
+ten
+```
+
+### File manipulation
+
+Lệnh `sort` sắp xếp lại các dòng trong file text theo thứ tự nào đấy
+
+```sh
+$ sort -r trang.txt 
+xin chao moi nguoi
+trangnth
+toi ten là trang
+meditech jsc
+```
+
+Lệnh `uniq` loại bỏ các dòng bị lặp trong file text. Ví dụ kết hợp với lệnh `sort` để hiển thị các dòng đã được sắp xếp và số lền bị lặp lại của dòng đó:
+
+	sort trang.txt | uniq -c
+
+Lệnh `paste` để gộp hai file theo các dòng (gộp từng dòng một với nhau)
+
+Lệnh `join` cũng để gộp hai file nhưng yêu cầu file đã được sắp xếp, sử dụng tùy chọn `--nocheck-order` để gộp mà không cần sắp xếp. Ví dụ:
+
+	join --nocheck-order trang.txt trang2.txt 
+
+Lệnh `grep` để tìm kiếm các từ khóa. Ví dụ tìm trong file tất cả các dòng bắt đầu bằng ký tự `t`
+
+	grep ^t trang.txt
+
+Lệnh `tr`. Nếu muốn đổi hết chữ in thường thành in hoa ta dùng lệnh
+
+	cat trang.txt | tr a-z A-Z
+
+Lệnh `tee` lấy output từ bất cứ cmd nào trong khi xuất ra output và lưu nó vào file
+
+	ls -l | tee list.txt
+
+`wc` đến số dòng, số từ, số ký tự trong một file hoặc một list các file
+
+	#Đếm số dòng
+	wc -l trang.txt
+	#Đếm số ký tự
+	wc -c trang.txt
+	#Đếm số từ
+	wc -w trang.txt
+
+Lệnh `cut` làm việc với các cột trong file và thiết kế để xuất nội dung của một cột cụ thể. Phân cách mặc định là `tab` và có thể tùy chọn các cách cắt khác. Ví dụ cắt theo dấu cách " " và lấy ra cột đầu tiên
+
+	cut -d" " -f1 trang.txt
+
+Lệnh `head` mặc định lấy 10 dòng đầu tiên. Ví dụ lấy 2 dòng đầu tiên của một file và hiển thị nó ra màn hình:
+
+	head -n 2 trang.txt
+
+Lệnh `tail` mặc định in ra 10 dòng cuối cùng của file. In ra 3 dòng cuối của file ta dùng lệnh:
+
+	tail -f -n3 trang.txt

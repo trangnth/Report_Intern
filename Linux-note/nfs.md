@@ -1,6 +1,6 @@
 ﻿## Network Filesystem
 
-Việc sử dụng NFS (the Network File System) là một phương pháp được dùng cho việc chia sẻ data qua physical systems. Người quản trị gắn các thư mục của người dùng từ xa trên một máy chủ để cho phép họ truy cập vào cùng một tệp và cấu hình.
+Việc sử dụng NFS (the Network File System) là một giao thức được dùng cho việc chia sẻ data qua physical systems. Người quản trị gắn các thư mục của người dùng từ xa trên một máy chủ để cho phép họ truy cập vào cùng một tệp và cấu hình.
 
 Hoạt động theo cơ chế client-server
 
