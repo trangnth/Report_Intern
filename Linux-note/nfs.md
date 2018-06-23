@@ -1,8 +1,15 @@
 ﻿## Network Filesystem
 
-Việc sử dụng NFS (the Network File System) là một giao thức được dùng cho việc chia sẻ data qua physical systems. Người quản trị gắn các thư mục của người dùng từ xa trên một máy chủ để cho phép họ truy cập vào cùng một tệp và cấu hình.
+NFS (the Network File System) là một giao thức được dùng cho việc chia sẻ data qua physical systems. Người quản trị gắn các thư mục của người dùng từ xa trên một máy chủ để cho phép họ truy cập vào cùng một tệp và cấu hình.
 
 Hoạt động theo cơ chế client-server
+
+Hiện tại NFS có 4 phiên bản. NFSv4 là phiên bản đang được sử dụng nhiều nhất và hỗ trợ phát huy tối đa của giao thức NFS
+
+Một số vấn đề với NFS
+* Không bảo mật, mã hóa dữ liệu
+* Hiệu suất hoạt động trung bình ở mức khá, nhưng không ổn định
+* Dữ liệu phân tán có thể bị phá vỡ nếu có nhiều phiên sử dụng đồng thời
 
 File `/etc/export` chứa các đường dẫn thư mục và quyền hạn mà một host muốn chia sẻ dữ liệu với host khác qua NSF.
 
