@@ -11,6 +11,8 @@
 3. [Iptables command](#ipcmd)
 	* Các option command thông dụng
 
+4. [Cài đặt iptables](#install)
+
 <a name="overview"></a>
 ## 1. Tổng quan
 
@@ -85,6 +87,16 @@ Bảng này bao gồm tất cả các chain được xây dựng sẵn (5 chain)
 
 ### 2.2 Quá trình xử lý gói tin
 
+<img src="Linux-note/img/iptables.png">
+
+Đầu tiên, khi gói tin đi vào từ mạng sẽ qua chain PREROUTING trước. Tại đây gói tin sẽ qua bảng mangle để thay đổi một số thông tin của header, sau đó đi tới bảng NAT để quyết định xem có thay đổi IP đích không (DNAT), tiếp theo sẽ đi vào bộ định tuyến routing để quyết định xem gói tin có được qua filewall không. Ở đây sẽ có 2 trường hợp:
+
+* Nếu là local packets thì sẽ được đưa tới chain INPUT. Tại chain INPUT, packets sẽ đi qua bảng mangle và bảng filter để kiểm tra các chính sách (rule), ứng với mỗi rule cụ thể sẽ được áp dụng cho mỗi target, packet có thể được chấp nhận hoặc hủy bỏ. Tiếp theo packet sẽ được chuyển lên cho các ứng dụng (client/server) xử lí local và chuyển ra chain OUTPUT với các bảng mangle, nat, filter, gói tin có thể bị thay đổi các thông số, bị lọc hoặc bị hủy bỏ. 
+
+* Nếu là forwarded packets, gói tin sẽ đi tới chain FORWARD, qua table mangle và filter. Đây là chain được sử dụng rất nhiều để bảo vệ người dùng trong mạng LAN với người sử dụng internet, các gói tin phải thỏa mãn các rule mới được chuyển qua các card mạng với nhau.
+
+Sau khi đi qua chain OUTPUT hoặc FORWARD, gói tin đi tiếp tới chain POSTROUTING (sau khi được định tuyến), tại chain này packets đi qua bảng mangle, nat có thể bị thay đổi ip nguồn (SNAT) hoặc Masquerade trước khi đi ra ngoài mạng
+
 
 <a name="ipcmd"></a>
 ## 3. Iptables command
@@ -100,6 +112,13 @@ Bảng này bao gồm tất cả các chain được xây dựng sẵn (5 chain)
 Trong đó: 
 
 * TARGET: Hành động sẽ thực thi.
+	* Accept: gói dữ liệu được chuyển tiếp để xử lý tại ứng dụng cuối hoặc hệ điều hành
+	* Drop: gói dữ liệu bị chặn, loại bỏ
+	* Reject: gói dữ liệu bị chặn, loại bỏ đồng thời gửi một thông báo lỗi tới người gửi
+	* Log: Thông tin của nó sẽ được đưa vào syslog để kiểm tra. Iptables tiếp xúc xử lý gói tiin với quy luật kế tiếp. –log-prefix “string”: Iptables sẽ thêm vào log message một chuổi (string) do người dùng định sẳn. Thông thường để thông báo lý do vì sao gói bị loại bỏ
+	* DNAT: Dùng để thực hiện thay đổi địa chỉ đích của gói dữ liệu. –to-destination ipaddress iptables sẽ viết lại địa chỉ ipaddress vào địa chỉ đích của gói tin,
+	* SNAT: Thay đổi địa chỉ nguồn của gói dữ liệu.
+	* MASQUERADE: Dùng để thay đổi địa chỉ ip nguồn. Mặc định thì địa chỉ ip nguồn sẽ giống với ip của firewall.
 * PROT: Là viết tắt của chữ Protocol, nghĩa là giao thức. Tức là các giao thức sẽ được áp dụng để thực thi quy tắc này. Ở đây chúng ta có 3 lựa chọn là all, tcp hoặc udp. Các ứng dụng như SSH, FTP, sFTP,..đều sử dụng giao thức kiểu TCP.
 * IN: chỉ ra rule sẽ áp dụng cho các gói tin đi vào từ interface nào, chẳng hạn như lo, eth0, eth1 hoặc any là áp dụng cho tất cả interface.
 * OUT: Tương tự như IN, chỉ ra rule sẽ áp dụng cho các gói tin đi ra từ interface nào.
@@ -216,3 +235,52 @@ Tương tự bạn có thể chặn traffic đi tới một IP hoặc 1 dải IP
 |-m [match]	|dùng để mở rộng rule đối với với một gói tin (*)|
 |-t [table]	|dùng để chọn bảng. nếu bạn không chọn thì mặc định iptable sẽ chọn bảng filter|
 |-p [protocol]	|chỉ ra gói tin thuộc loại nào: tcp, udp, icmp,...|
+
+
+<a name="install"></a>
+## 4. Install iptables
+
+Iptable thường được cài mặc định trong các hệ điều hành linux
+
+* CentOS: 
+		
+		yum install iptables
+
+* Ubuntu: 
+
+		apt-get install iptables
+
+CentOS 7 sử dụng FirewallD làm tường lửa mặc định thay vì iptables, nên để sử dụng iptables thì cần tắt FirewallD đi và khởi động iptable lên: 
+
+```sh 
+systemctl mask firewalld
+systemctl enable iptables
+systemctl enable ip6tables
+systemctl stop firewalld
+systemctl start iptables
+systemctl start ip6tables
+```
+
+Trên Ubuntu thì sử dụng ufw, nên cần tắt ufw đi để tránh xung đột, do ufw và iptable đều là tường lửa mặc định:
+
+	ufw disable
+
+Kiểm tra iptable đã được cài đặt chưa:
+
+* Ubuntu 
+		
+		iptables --version
+
+* CentOS
+
+		rpm -q iptables
+		iptables --version
+
+Để khởi chạy iptables cùng hệ thống
+
+	chkconfig iptables on
+
+Trên Ubuntu, Iptables là chuỗi lệnh không phải là 1 services nên bạn không thể start, stop hay restart. Một cách đơn giản để vô hiệu hóa là bạn xóa hết toàn bộ các quy tắc đã thiết lập bằng lệnh flush:
+
+	iptables -F
+
