@@ -221,7 +221,7 @@ Tương tự bạn có thể chặn traffic đi tới một IP hoặc 1 dải IP
 
 ### Một số các tùy chọn thường sử dụng
 
-|Tùy chọn|	Ý nghĩa|s
+|Tùy chọn|	Ý nghĩa|
 |--|--|
 |-A chain rule	|Thêm Rule vào chain|
 |-D [chain] [index]	|Xóa rule có chỉ số trong chain đã chọn|
