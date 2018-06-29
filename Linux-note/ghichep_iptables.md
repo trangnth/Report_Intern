@@ -13,6 +13,11 @@
 
 4. [Cài đặt iptables](#install)
 
+5. [Use case](#usecase)
+
+### [Tham Khảo](#thamkhao)
+
+
 <a name="overview"></a>
 ## 1. Tổng quan
 
@@ -33,8 +38,8 @@ Iptables cơ bản gồm 3 thành phần chính: Table, chain, target
 
 Các table được sử dụng để định nghĩa các các rules cụ thể cho các gói tin. Có 4 loại table khác nhau: 
 
-|Name| |
-|----|--|
+|Name|Định nghĩa |
+|----|---|
 |Filter table|Quyết định gói tin có được gửi tới đích hay không|
 |Mangle table|Bảng quyết định việc sửa head của gói tin (các giá trị của các trường TTL, MTU, Type of Service)|
 |Nat table|Cho phép route các gói tin đến các host khác nhau trong mạng NAT, cách đổi IP nguồn IP đích của gói tin. |
@@ -60,26 +65,36 @@ Chains không chỉ nằm trên một table và một table không chỉ chứa 
 * Target 
 
 Target đơn giản là các hành động áp dụng cho các gói tin. Đối với những gói tin đúng theo rule mà chúng ta đặt ra thì các hành động (target) có thể thực hiện được đó là:
-	- Accept: Chấp nhận gói tin
-	- Drop: loại bỏ gói tin, không có gói tin trả lời, phía nguồn sẽ không biết đích có tồn tại hay không.
-	- Reject: loại bỏ gói tin nhưng có trả lời table gói tin khác, ví dụ trả lời table 1 gói tin "connection reset" đối với gói TCP hoặc bản tin “destination host unreachable” đối với gói UDP và ICMP.
-	- Log: chấp nhận gói tin và ghi log lại
+
++ Accept: Chấp nhận gói tin
+
++ Drop: loại bỏ gói tin, không có gói tin trả lời, phía nguồn sẽ không biết đích có tồn tại hay không.
+
++ Reject: loại bỏ gói tin nhưng có trả lời table gói tin khác, ví dụ trả lời table 1 gói tin "connection reset" đối với gói TCP hoặc bản tin “destination host unreachable” đối với gói UDP và ICMP.
+
++ Log: chấp nhận gói tin và ghi log lại
 
 Khi có nhiều rule, gói tin sẽ đi qua tất cả các rule chứ không chỉ dừng lại khi đã đúng với một rule đầu. Đối với gói tin, không khớp với rule nào thì mặc định sẽ được chấp nhận.
 
 * Bảng NAT
 
-Bảng NAT có 3 chain được xây dựng sẵn trong table NAT là 
-	+ Chain PREROUTING: Ví dụ đối với gói tin tcp có port đích là 80 thì sẽ được đổi địa chỉ đích thành 10.0.30.100: `iptables -t NAT -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.0.30.100:80`
-	+ Chain POSTROUTING: Ví dụ đổi địa chỉ nguồn với gói tin tcp thành 10.0.30.200: `iptables -t NAT -A POSTROUTING -p tcp -j SNAT --to-source 10.0.30.200`
-	+ Chain Output
+Bảng NAT có 3 chain được xây dựng sẵn trong table NAT là
+
++ Chain PREROUTING: Ví dụ đối với gói tin tcp có port đích là 80 thì sẽ được đổi địa chỉ đích thành 10.0.30.100: `iptables -t NAT -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.0.30.100:80`
+
++ Chain POSTROUTING: Ví dụ đổi địa chỉ nguồn với gói tin tcp thành 10.0.30.200: `iptables -t NAT -A POSTROUTING -p tcp -j SNAT --to-source 10.0.30.200`
+
++ Chain Output
 
 * Bảng filter
 
 Các chain được xây dựng sẵn trong bảng filter:
-	- Chain Input
-	- Chain Output 
-	- Chain Forward
+
++ Chain Input
+
++ Chain Output 
+
++ Chain Forward
 
 * Bảng Mangle 
 
@@ -87,7 +102,7 @@ Bảng này bao gồm tất cả các chain được xây dựng sẵn (5 chain)
 
 ### 2.2 Quá trình xử lý gói tin
 
-<img src="Linux-note/img/iptables.png">
+<img src="img/iptables.png">
 
 Đầu tiên, khi gói tin đi vào từ mạng sẽ qua chain PREROUTING trước. Tại đây gói tin sẽ qua bảng mangle để thay đổi một số thông tin của header, sau đó đi tới bảng NAT để quyết định xem có thay đổi IP đích không (DNAT), tiếp theo sẽ đi vào bộ định tuyến routing để quyết định xem gói tin có được qua filewall không. Ở đây sẽ có 2 trường hợp:
 
@@ -100,10 +115,6 @@ Sau khi đi qua chain OUTPUT hoặc FORWARD, gói tin đi tiếp tới chain POS
 
 <a name="ipcmd"></a>
 ## 3. Iptables command
-
-#### Để khởi động iptables mỗi khi máy khởi động
-
-	chkconfig iptables on
 
 #### Để xem các rule đang có trong iptables
 
@@ -242,13 +253,9 @@ Tương tự bạn có thể chặn traffic đi tới một IP hoặc 1 dải IP
 
 Iptable thường được cài mặc định trong các hệ điều hành linux
 
-* CentOS: 
-		
-		yum install iptables
+* CentOS: `yum install iptables`
 
-* Ubuntu: 
-
-		apt-get install iptables
+* Ubuntu: `apt-get install iptables`
 
 CentOS 7 sử dụng FirewallD làm tường lửa mặc định thay vì iptables, nên để sử dụng iptables thì cần tắt FirewallD đi và khởi động iptable lên: 
 
@@ -267,11 +274,9 @@ Trên Ubuntu thì sử dụng ufw, nên cần tắt ufw đi để tránh xung đ
 
 Kiểm tra iptable đã được cài đặt chưa:
 
-* Ubuntu 
-		
-		iptables --version
+* Ubuntu: `iptables --version`
 
-* CentOS
+* CentOS:
 
 		rpm -q iptables
 		iptables --version
@@ -283,4 +288,95 @@ Kiểm tra iptable đã được cài đặt chưa:
 Trên Ubuntu, Iptables là chuỗi lệnh không phải là 1 services nên bạn không thể start, stop hay restart. Một cách đơn giản để vô hiệu hóa là bạn xóa hết toàn bộ các quy tắc đã thiết lập bằng lệnh flush:
 
 	iptables -F
+
+
+### Lưu lại các thay đổi về iptables
+
+Mặc định khi bạn reload lại máy thì các rule iptables sẽ mất, để lưu lại cần cài thêm iptables-persistent
+
+	sudo apt-get install iptables-persistent
+	sudo netfilter-persistent save
+	sudo netfilter-persistent reload
+
+
+<a name="usercase"></a>
+## 5. Use case
+
+### Bài toán: Thao tác với bảng
+
+Tôi có 3 con máy ảo trên vmware 14 như sau: 
+
+* Server:
+	
+		OS: ubuntu 16.04
+		Số card mạng: 2 
+			NAT: 192.168.60.134
+			Hostonly: 192.168.88.100
+		
+
+* Client 1:
+
+		OS: ubuntu 16.04
+		Số card mạng: 1 (Hostonly)
+		ip: 192.168.88.136
+
+* Client 2:
+
+		OS: ubuntu 16.04
+		Số card mạng: 1(Hostonly)
+		ip: 192.168.88.101
+
+Iptables sẽ được cấu hình trên server sao cho:
+
+* Client 1 có thể đi ra được internet, client 2 thì không
+* Chỉ cho client 2 ssh tới server còn client 1 thì không
+
+#### Thực hiện cho phép client 2 ssh tới server
+
+Cho phép client 2 kết nối tới server qua port 22:
+
+	iptables -t filter -A INPUT -p tcp --dport 22 -s 192.168.88.101 -j ACCEPT
+
+Chặn mọi kết nối khác tới card mạng host only port 22
+
+	iptables -A INPUT -i ens32 -p tcp --dport 22 -j REJECT
+
+Hãy thử ssh tới server, ta sẽ thấy client 2 kết nối được, còn client 1 thì không (qua card host)
+
+#### Cho phép Client 1 ra ngoài mạng
+
+Đầu tiên, trên client 1 cần đặt default route tới server:
+
+	ip route del default
+	ip route add default via 192.168.88.100
+
+Trên server gõ lệnh sau:
+
+	sysctl net.ipv4.ip_forward=1
+
+Hoặc sửa file `/etc/sysctl.conf` để không bị mất mỗi khi reboot.
+
+	net.ipv4.ip_forward=1
+
+Rồi refresh lại bằng lệnh
+
+	sysctl -p
+
+Cấu hình nat cho phép nat qua card mạng ens33 (card NAT để ra ngoài mạng)
+
+	iptables -t nat -A POSTROUTING -o ens33 -j MASQUERADE
+
+Save lại
+
+	sudo netfilter-persistent save
+	sudo netfilter-persistent reload
+
+Giờ Client 1 đã có thể ra ngoài mạng
+
+<a name="thamkhao"></a>
+## Tham khảo
+
+Tham khảo thêm:
+
+https://www.linode.com/docs/security/firewalls/control-network-traffic-with-iptables/
 
