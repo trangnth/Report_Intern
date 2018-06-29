@@ -362,7 +362,7 @@ Rồi refresh lại bằng lệnh
 
 	sysctl -p
 
-Cấu hình nat cho phép nat qua card mạng ens33 (card NAT để ra ngoài mạng)
+Cấu hình nat cho phép nat qua card mạng ens33 (card NAT để ra ngoài mạng), set up Masquerading
 
 	iptables -t nat -A POSTROUTING -o ens33 -j MASQUERADE
 
@@ -380,3 +380,6 @@ Tham khảo thêm:
 
 https://www.linode.com/docs/security/firewalls/control-network-traffic-with-iptables/
 
+https://www.howtoforge.com/nat_iptables
+
+https://www.karlrupp.net/en/computer/nat_tutorial
