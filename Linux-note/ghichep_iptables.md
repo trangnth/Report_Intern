@@ -373,10 +373,9 @@ Save lại
 
 Giờ Client 1 đã có thể ra ngoài mạng
 
+
 <a name="thamkhao"></a>
 ## Tham khảo
-
-Tham khảo thêm:
 
 https://www.linode.com/docs/security/firewalls/control-network-traffic-with-iptables/
 
