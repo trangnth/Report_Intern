@@ -22,10 +22,11 @@ Trong đó:
     * Trường 2: Là một chuỗi dữ liệu ngẫu nhiên (salt) kết hợp với pass người dùng, tăng tính bảo mật trong hàm băm.
     * Trường 3: Giá trị băm của salt với password
 
-* Nếu tại password-encode mà :
-           * `rỗng`, nghĩa là không có mật khẩu.
-           * `!` , nghĩa là mật khẩu người dùng bị chặn, nhưng có thể sử dụng phương thức khác để connect, như ssh key.
-           * `*`, nghĩa là mật khẩu bị chặn, vẫn có thể connect bằng phương thức khác.
+* Nếu tại password-encode mà:
+
+	* `rỗng`, nghĩa là không có mật khẩu.
+	* `!` , nghĩa là mật khẩu người dùng bị chặn, nhưng có thể sử dụng phương thức khác để connect, như ssh key.
+	* `*`, nghĩa là mật khẩu bị chặn, vẫn có thể connect bằng phương thức khác.
 
 3. last_pass_change : Thời gian từ ngày 1/1/1970 tới lần thay đổi mật khẩu gần nhất (tính bằng ngày).
 
