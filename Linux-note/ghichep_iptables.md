@@ -299,7 +299,7 @@ Mặc định khi bạn reload lại máy thì các rule iptables sẽ mất, đ
 	sudo netfilter-persistent reload
 
 
-<a name="usercase"></a>
+<a name="usecase"></a>
 ## 5. Use case
 
 ### Bài toán: Thao tác với bảng
