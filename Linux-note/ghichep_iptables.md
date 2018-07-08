@@ -1,15 +1,10 @@
 # IPTABLES 
 
 1. [Tổng quan](#overview)
-	* Iptables là gì? để làm gì?
-	* Lịch sử phát triển
-	* Các khái niệm
 
 2. [Kiến trúc](#Arch)
-	* Quá trình sử lý gói tin
 
 3. [Iptables command](#ipcmd)
-	* Các option command thông dụng
 
 4. [Cài đặt iptables](#install)
 
