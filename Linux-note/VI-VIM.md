@@ -40,4 +40,13 @@ Ví dụ như:
 * Copy nội dung cho tới lúc gặp dấu ".": yf. (yank (to) find .)
 * Bạn muốn di chuyển con trỏ xuống dưới 10 dòng: 10j
 
-### Custom Vim
+## Custom Vim
+
+### Nếu muốn sử dụng ctrl + c và ctrl + v trong Vim ta cấu hình như sau:
+
+```sh
+:vnoremap <C-c> "+y
+(:vnoremap <C-Insert> "+y)
+:inoremap <C-v> <ESC>"+pa
+```
+
