@@ -32,6 +32,8 @@ Grep mặc định là có phân biệt chữ in hoa và in thường, dưới �
 	* {,m} The preceding item is matched at most m times.
 	* {n,m} The preceding item is matched at least n times, but not more than m times.
 
+Một ví dụ về sự khác nhau giữa `?` và `*` [ở đây](https://askubuntu.com/questions/822779/difference-between-and-in-regular-expressions)
+
 5. Checking for full words, not for sub-strings using grep -w
 
 	Để hiểu được chuỗi muốn tìm là một từ tách biệt (không nằm trong từ khác) thì sử dụng thêm tùy chọn `w`, ví dụ:
