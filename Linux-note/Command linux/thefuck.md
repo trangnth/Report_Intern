@@ -42,11 +42,11 @@ source ~/.bashrc
 
 Để chạy command mà không cần xác nhận lại thì sử dụng `--yeah` hoặc `-y`:
 
-```
+```sh
 fuck --yeah
 ```
 
-Để thực hiện sửa command đệ quy cho tới khi thành công sử dụng option `-r`
+Để thực hiện sửa command một cách đệ quy cho tới khi thành công bằng việc sử dụng option `-r`, liên tục tự sửa command cho tới khi thành công
 
 ```sh
 fuck -r
@@ -58,7 +58,7 @@ Update
 pip3 install thefuck --upgrade
 ```
 
-Ví dụ:
+Ví dụ nhập sai một command và gõ `fuck` để sửa, sẽ cần gõ `enter` để xác nhận command, gõ phím mũi tên lên xuống để chọn các command bị lỗi trước đó khác. Nếu thêm option `--yeah` vào thì mặc định sẽ sửa luôn command sai gần nhất mà không cần xác nhận.
 
 ```sh
 [root@trang-20-51 ~]# puthon --version

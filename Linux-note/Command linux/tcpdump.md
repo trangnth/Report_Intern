@@ -119,13 +119,67 @@ Nếu muốn bắt các gói tin có nguôn là 192.168.0.2 hoặc đích là 50
 	tcpdump -i eth0 src 192.168.0.2
 	tcpdump -i eth0 dst 50.116.66.139
 
+### Get Packet Contents with Hex Output
+
+```sh
+tcpdump -c 1 -X icmp
+```
+
+### Show Traffic Related to a Specific Port
+
+```sh
+tcpdump port 3389 
+tcpdump src port 1025
+```
+
+Show Traffic of One Protocol
+
+```sh
+tcpdump icmp
+```
+
+Show only IP6 Traffic
+
+```sh
+tcpdump ip6
+```
+
+Find Traffic Using Port Ranges
+
+```sh
+tcpdump portrange 21-23
+```
+
+Find Traffic Based on Packet Size
+
+```sh
+tcpdump less 32 
+tcpdump greater 64 
+tcpdump <= 128
+```
+
+## Kết hợp sử dụng giữa các option với nhau
+
+* **AND**: `and` hoặc `&&`
+* **OR**: `or` hoặc `||`
+* **EXCEPT**: `not` hoặc `!`
+
+Ví dụ:
+
+* From specific IP and destined for a specific Port: Tìm tất cả các trafic từ 10.5.2.3 đi tới bất kỳ host nào trên port 3389
+
+```sh
+tcpdump -nnvvS src 10.5.2.3 and dst port 3389
+```
 
 
 
 ### Tham Khảo
 
-https://www.tcpdump.org/tcpdump_man.html
+[1] https://www.tcpdump.org/tcpdump_man.html
 
-https://www.tecmint.com/12-tcpdump-commands-a-network-sniffer-tool/
+[2] https://www.tecmint.com/12-tcpdump-commands-a-network-sniffer-tool/
 
-https://github.com/hoangdh/tcpdump
+[3] https://github.com/hoangdh/tcpdump
+
+[4] https://danielmiessler.com/study/tcpdump/#host-ip

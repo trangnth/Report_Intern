@@ -5,7 +5,15 @@ Openstack sử dụng một Message queue để điều phối các hoạt độ
 
 ## 1. AMQP và Nova
 
-AMQP là một công nghệ messaging được lựa chọn bởi Openstack cloud. AMQPbroker 
+AMQP là một công nghệ messaging được lựa chọn bởi Openstack cloud. AMQP broker mặc định là  RabbitMQ, nằm giữa hai thành phần Nova, cho phép chúng giao tiếp với nhau một cách "long lẻo". Chính xác hơn, các thành phần của Nova sử dụng Remote Procedure Calls (RPC hereinafter) để giao tiếp với một thành phần khác; tuy nhiên một mô hình như vậy được xây dựng dựa trên mô hình publish/subscribe để có thể đạt được các mục đích sau: 
+
+* Phân tách giữa client và servant (người phục vụ), chẳng hạn, client không cần biết servant’s reference ở đâu.
+* Đồng bộ toàn bộ giữa client and servant (như client không cần servant chạy cùng lúc với thời điểm remote call)
+* Random balancing of remote calls (chẳng hạn nếu nhiều servant up và running, các cuộc gọi được gửi tới một cách minh bạch tới servant nào có sẵn đầu tiên).
+
+Nova sử dụng direct, fanout, and topic-based exchanges. Kiến trúc được miêu tả như hình dưới đây:
+
+<img src="../img/rpc-arch.png">
 
 
 
