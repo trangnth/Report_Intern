@@ -8,7 +8,7 @@ Miêu tả code: Script được viết ra để sinh ra một cặp key cho ssh
 
 #### Cách chạy script
 
-* B1: Download script về
+* B1: Download script về [version 1](ssh_gen_key_v1.sh) hoặc [version 2](ssh_gen_key_v2.sh)
 * B2: Phân quyền cho file script để chạy
 		
 		chmod 777 ssh_gen_key_v2.sh
