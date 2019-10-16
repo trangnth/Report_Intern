@@ -1,10 +1,11 @@
 # Tìm hiểu và cài đặt apt-cacher-ng
 
-[1. Tổng quan apt-cacher-ng]()
+[1. Tổng quan apt-cacher-ng](#overview)
 
-[2. Cài đặt và cấu hình]
+[2. Cài đặt và cấu hình](#config)
 
 
+<a name="overview"></a>
 ## 1. Tổng quan apt-cacher-ng
 
 Apt-cacher-ng là một proxy server dùng để cache các gói tin được download từ internet trên server và các client khác có thể sử dụng cho lần sau. Các client khi cài đặt lại, thay vì phải ra internet để download package về thì có thể lên con apt-cacher-ng (được đặt tại local) này để tải. 
@@ -17,6 +18,8 @@ Có thể sử dụng cho các client là Ubuntu hoặc Centos.
 * Tiết kiệm bằng thông
 * Giữ lại và cài đặt các phiên bản mong muốn
 
+
+<a name="config"></a>
 ## 2. Cài đặt và cấu hình
 
 ### Trên server:

@@ -5,8 +5,40 @@ Trong `vim` nếu muốn thêm `#` để comment các dòng từ dòng 1 tới d
 	:1,10s/^/#
 
 Hiển thị một file mà trừ các dòng comment hoặc dòng trắng:
+```sh
+cat /etc/libvirt/libvirtd.conf | egrep -v "^$|^#"
 
-	cat /etc/libvirt/libvirtd.conf | egrep -v "^$|^#"
+# hoặc để thực hiện bỏ toàn bộ các dòng comment, kể cả các dòng comment thụt vào một đoạn (nếu tab khong phải là 4 space thì sẽ ko lọc được)
+cat /etc/httpd/conf/httpd.conf | egrep -v "^#|^$|^ *#|^[\t]#"
+
+# Hoặc sử dụng cách sau để convert tab thành ^I sau đó loại bỏ toàn bộ dòng bắt đầu với ^I# (nhưng các dòng nào có dấu tab giữa dòng sẽ bị hiển thi ra)
+cat -T /etc/httpd/conf/httpd.conf | egrep -v "^#|^$|^ *#|^\^I#"
+
+# Hoặc sử dụng command như sau để convert toàn bộ spcae thành space rồi lọc
+expand /etc/httpd/conf/httpd.conf | egrep -v "^#|^$|^ *#"
+```
+
+Sử dụng command expand để convert toàn bộ tab thành space với số lượng chỉ định
+
+```sh
+expand -t N tab_file
+
+# hoặc 
+
+expand -t2 tab_file > space_file
+
+# Ví dụ chuyern tất cả các dấu tab (hiện đang bằng 4 space) thành 2 ký tự space
+[root@controller1 ~(openstack)]# expand test.txt
+asdasd
+aad
+        qasd
+aas
+[root@controller1 ~(openstack)]# expand -t 2 test.txt
+asdasd
+aad
+  qasd
+aas
+```
 
 ### Một số các command cơ bản hữu ích 
 

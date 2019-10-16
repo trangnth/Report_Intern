@@ -1,4 +1,4 @@
-### Command history
+## Command history
 
 Bash sẽ lưu trữ tất cả các lệnh đã gõ trong bộ đệm history, bạn có thể gọi lại các lệnh trước đó bằng cách sử dụng phím `up` và `down`. Để xem tất cả các lệnh đó, bạn có thể sử dụng command `history`. Danh sách các lệnh được hiển thị với lệnh gần đây nhất sẽ xuất hiện từ cuối lên. Thông tin này được lưu trữ trong file `~/.bash_history`. Một số biến môi trường có thể sử dụng để lấy thông tin này:
 
@@ -43,10 +43,53 @@ Hiển thị 5 dòng thôi
 
 	export HISTCONTROL=dups
 
-nếu muôn bỏ các lệnh lặp đó thì đổi lại là:
+Nếu muốn bỏ các lệnh lặp đó thì đổi lại là:
 
 	export HISTCONTROL=ignoredups
 
 Với quyền root, có thể xem lịch sử của các user khác
 
 	grep -e "$pattern" /home/*/.bash_history
+
+
+## Quit Bash Shell Without Saving Bash History
+
+### Cach 1: Xóa history của session hiện tại mà không ảnh hưởng tới history cũ trước đó
+
+* Unset HISTFILE
+
+```sh
+unset HISTFILE && exit
+```
+
+* Kill Console
+
+```sh
+kill -9 $$
+```
+
+### Cách 2: Xóa toàn bộ Bash History mà không lưu lại dấu vết
+
+* Clear History Option
+
+```sh 
+history -c && exit
+```
+
+* Set HISTSIZE = 0 
+
+```sh
+HISTSIZE=0 && exit 
+```
+
+* Delete HISTFILE và Unset HISTFILE
+
+```sh
+rm -f $HISTFILE && unset HISTFILE && exit
+```
+
+
+
+
+
+

@@ -56,7 +56,7 @@ Tạo mới repodata cho local repositories bằng cách chạy command sau:
 
 ```sh
 createrepo -g comps.xml /var/www/html/repos/base/  
-createrepo -g comps.xml /var/www/html/repos/centosplus/	
+createrepo -g comps.xml /var/www/html/repos/centosplus/ 
 createrepo -g comps.xml /var/www/html/repos/extras/  
 createrepo -g comps.xml /var/www/html/repos/updates/  
 ```
@@ -69,11 +69,11 @@ $ vim /etc/nginx/conf.d/repos.conf
 
 server {
         listen   8008;
-        server_name  trang-40-92;	#change  trang-40-92 to your real domain 
+        server_name  trang-40-92;   #change  trang-40-92 to your real domain 
         root   /var/www/html/repos;
         location / {
                 index  index.php index.html index.htm;
-                autoindex on;	#enable listing of directory index
+                autoindex on;   #enable listing of directory index
         }
 }
 ```
@@ -88,7 +88,7 @@ createrepo /var/www/html/repos/base/
 mkdir /var/www/html/repos/base/Packages
 yumdownloader --resolve --destdir= /var/www/html/repos/base/Packages httpd
 ```
-
+    
 Trên client định nghĩa:
 
 ```sh 
@@ -113,12 +113,16 @@ Mỗi lần thêm gói mới hoặc có thay đổi trên repo thì cần chạy
 
 * Trên controller:
 
-		createrepo --update /var/www/html/repos/base
+```sh
+createrepo --update /var/www/html/repos/base
 
 * Trên client:
-		
-		yum update
-		yum install -y <package name>
+
+```sh       
+yum update
+yum install -y <package name>
+```
+
 
 
 ## Tham khảo
