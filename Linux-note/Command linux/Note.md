@@ -1,6 +1,6 @@
 ## Ghi chú một vài câu lệnh trong qua trình tìm hiểu
 
-Trong `vim` nếu muốn thêm `#` để comment các dòng từ dòng 1 tới dòng 10 thì dùng lệnh sau (trong chế độ normal của vi/vim):
+* Trong `vim` nếu muốn thêm `#` để comment các dòng từ dòng 1 tới dòng 10 thì dùng lệnh sau (trong chế độ normal của vi/vim):
 
 	:1,10s/^/#
 
@@ -14,11 +14,11 @@ cat /etc/httpd/conf/httpd.conf | egrep -v "^#|^$|^ *#|^[\t]#"
 # Hoặc sử dụng cách sau để convert tab thành ^I sau đó loại bỏ toàn bộ dòng bắt đầu với ^I# (nhưng các dòng nào có dấu tab giữa dòng sẽ bị hiển thi ra)
 cat -T /etc/httpd/conf/httpd.conf | egrep -v "^#|^$|^ *#|^\^I#"
 
-# Hoặc sử dụng command như sau để convert toàn bộ spcae thành space rồi lọc
+# Hoặc sử dụng command như sau để convert toàn bộ spcae thành space rồi lọc. Sử dụng cho các file cấu hình dạnh httpd.conf có các dòng comment với các dấu # thụt đầu dòng
 expand /etc/httpd/conf/httpd.conf | egrep -v "^#|^$|^ *#"
 ```
 
-Sử dụng command expand để convert toàn bộ tab thành space với số lượng chỉ định
+* Sử dụng command expand để convert toàn bộ tab thành space với số lượng chỉ định
 
 ```sh
 expand -t N tab_file
@@ -47,7 +47,6 @@ aas
 ```sh
 !!
 ```
-
 
 
 * Hiển thị routing table
@@ -263,3 +262,21 @@ if [ -d /etc/profile.d ]; then
 fi
 TMOUT=600
 ```
+
+## Một số thao tác cơ bản với tmux
+
+* Tạo một session mới: `tmux`. Lệnh này sẽ tự động tạo ra các session với tên lần lượt là 0, 1, 2,...
+
+* Tạo một session mới và đặt tên cho session đó: `tmux new -s trang1`
+
+* Tạm thời ẩn một session đi  (cho nó hạy dưới nền): `Ctrl + b d`
+
+* Liệt kê các session hiện có: `tmux ls`
+
+* Attach lại một session đang chạy: Ví dụ `tmux a -t trang` hoặc `tmux a -t 1`
+
+* Tạo một Windows mới trong một session bất kỳ: `Ctrl + b c`, các windows này sẽ được đánh số đặt tên lần lượt từ 0, 1, 2,...
+
+* Phân chia màn hình giữa các Windows: `Ctrl + b %`
+
+* Di chuyển giữa các Windows: `Ctrl + b <mũi tên trái, phải, lên, xuống>`
