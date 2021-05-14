@@ -23,3 +23,13 @@ Miêu tả code: Script được viết ra để sinh ra một cặp key cho ssh
 		192.168.60.129 trangnth abc
 
 * B4: Finished. Đăng nhập vào server theo câu lệnh đưa ra trên màn hình
+
+
+### Update version 3
+
+Nhâp ip, username và password tương ứng cho mỗi server từ một file có sẵn. Tất cả các server dùng một key chung. 
+
+Mô tả script: 
+
+* Nếu keypair đã tồn tại thì không ssh-key-gen nữa
+* Nếu trên remote server đã được add key thì thôi không ssh-copy-key nữa
